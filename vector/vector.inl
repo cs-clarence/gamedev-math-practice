@@ -61,6 +61,28 @@ vector<size, Type> _vtr2scr_bin_op(
   return res;
 }
 
+template<class Type>
+vector<1, Type> _vtr2scr_bin_op(
+  const vector<1, Type> &v, Type scalar, std::function<Type(Type, Type)> op)
+{
+  return vector<1, Type> {op(v.x(), scalar)};
+}
+
+template<class Type>
+vector<2, Type> _vtr2scr_bin_op(
+  const vector<2, Type> &v, Type scalar, std::function<Type(Type, Type)> op)
+{
+  return vector<2, Type> {op(v.x(), scalar), op(v.y(), scalar)};
+}
+
+template<class Type>
+vector<3, Type> _vtr2scr_bin_op(
+  const vector<3, Type> &v, Type scalar, std::function<Type(Type, Type)> op)
+{
+  return vector<3, Type> {
+    op(v.x(), scalar), op(v.y(), scalar), op(v.z(), scalar)};
+}
+
 // Vector Binary Operation Helper Function
 template<uint64_t size, class Type>
 vector<size, Type> _vtr_bin_op(
@@ -73,6 +95,34 @@ vector<size, Type> _vtr_bin_op(
   return res;
 }
 
+template<class Type>
+vector<1, Type> _vtr_bin_op(
+  const vector<1, Type> &v1,
+  const vector<1, Type> &v2,
+  std::function<Type(Type, Type)> op)
+{
+  return vector<1, Type> {op(v1.x(), v2.x())};
+}
+
+template<class Type>
+vector<2, Type> _vtr_bin_op(
+  const vector<2, Type> &v1,
+  const vector<2, Type> &v2,
+  std::function<Type(Type, Type)> op)
+{
+  return vector<2, Type> {op(v1.x(), v2.x()), op(v1.y(), v2.y())};
+}
+
+template<class Type>
+vector<3, Type> _vtr_bin_op(
+  const vector<3, Type> &v1,
+  const vector<3, Type> &v2,
+  std::function<Type(Type, Type)> op)
+{
+  return vector<2, Type> {
+    op(v1.x(), v2.x()), op(v1.y(), v2.y()), op(v1.z(), v2.z())};
+}
+
 // Vector Binary Operation Helper Function
 template<uint64_t size, class Type>
 vector<size, Type>
@@ -81,6 +131,27 @@ _vtr_una_op(const vector<size, Type> &v, std::function<Type(Type)> op)
   vector<size, Type> res;
   for (uint64_t i = 0; i < size; ++i) { res[i] = op(v[i]); }
   return res;
+}
+
+template<class Type>
+vector<1, Type>
+_vtr_una_op(const vector<1, Type> &v, std::function<Type(Type)> op)
+{
+  return vector<1, Type> {op(v.x())};
+}
+
+template<class Type>
+vector<2, Type>
+_vtr_una_op(const vector<2, Type> &v, std::function<Type(Type)> op)
+{
+  return vector<2, Type> {op(v.z()), op(v.y())};
+}
+
+template<class Type>
+vector<3, Type>
+_vtr_una_op(const vector<3, Type> &v, std::function<Type(Type)> op)
+{
+  return vector<3, Type> {op(v.z()), op(v.y()), op(v.z())};
 }
 
 // Free operator overloads
