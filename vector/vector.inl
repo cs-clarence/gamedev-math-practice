@@ -251,7 +251,7 @@ inline Type dot(const vector<3, Type> &v1, const vector<3, Type> &v2)
   return v1.x() * v2.x() + v1.y() * v2.y() + v1.z() * v2.z();
 }
 
-// helper function for cross(), moves and index forward but also wraps around if
+// helper function for cross(), moves and index forward but also wraps-around if
 // index goes beyond the boundary
 inline uint64_t _move_forward_wrap(uint64_t index, size_t size)
 {
@@ -276,6 +276,32 @@ cross(const vector<size, Type> &v1, const vector<size, Type> &v2)
     k = _move_forward_wrap(j, size);
   }
   return v;
+}
+
+// faster cross() implementation for vector<1>
+template<class Type>
+vector<1, Type> cross(const vector<1, Type> &v1, const vector<1, Type> &v2)
+{
+  return vector<1, Type> {v1.x() * v2.x() - v1.x() * v2.x()};
+}
+
+// faster cross() implementation for vector<2>
+template<class Type>
+vector<2, Type> cross(const vector<2, Type> &v1, const vector<2, Type> &v2)
+{
+  return vector<2, Type> {
+    v1.y() * v2.x() - v1.x() * v2.y(), v1.x() * v2.y() - v1.y() * v2.x()};
+}
+
+// faster cross() implementation for vector<3>
+template<class Type>
+vector<3, Type> cross(const vector<3, Type> &v1, const vector<3, Type> &v2)
+{
+  return vector<3, Type> {
+    v1.y() * v2.z() - v1.z() * v2.y(),
+    v1.z() * v2.x() - v1.x() * v2.z(),
+    v1.x() * v2.y() - v1.y() * v2.x(),
+  };
 }
 
 // cout insertion operator overload

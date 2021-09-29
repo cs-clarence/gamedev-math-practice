@@ -7,8 +7,8 @@
 int main()
 try
 {
-  vector<2> v1 {1, 2};
-  vector<2> v2 {2, 1};
+  vector<3> v1 {1, 2, 3};
+  vector<3> v2 {3, 2, 1};
 
   PRINT_EXPRESSION(v1);
   PRINT_EXPRESSION(v1 + v1);
@@ -18,6 +18,8 @@ try
   PRINT_EXPRESSION(v1.normalize());
   PRINT_EXPRESSION(v1.normalize().magnitude());
   PRINT_EXPRESSION(cross(v1, v2));
+  PRINT_EXPRESSION(
+    dot(vector<2> {10.f, 10.f}.normalize(), vector<2> {10.f, 0.f}.normalize()));
 
   matrix2<3, 3> mat {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
   PRINT_EXPRESSION(mat);
@@ -25,6 +27,11 @@ try
   auto matT = mat.transpose();
   PRINT_EXPRESSION(matT);
   PRINT_EXPRESSION(mat * matT);
+
+  matrix2<3, 3> symmetric_matrix {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+
+  PRINT_EXPRESSION(symmetric_matrix);
+  PRINT_EXPRESSION(symmetric_matrix.transpose());
 
   return 0;
 }
