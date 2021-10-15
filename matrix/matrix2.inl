@@ -179,6 +179,30 @@ inline matrix2<rows, cols, Type> operator-(const matrix2<rows, cols, Type> &m)
   return _mtx_una_op<rows, cols, Type>(m, std::negate<Type>());
 }
 
+// matrix relational operations
+// matrix equality operator
+template<uint64_t rows, uint64_t cols, class Type>
+bool operator==(
+  const matrix2<rows, cols, Type> &m1, const matrix2<rows, cols, Type> &m2)
+{
+  for (uint64_t i = 0; i < rows; ++i)
+  {
+    for (uint64_t j = 0; j < cols; ++j)
+    {
+      if (m1(i, j) != m2(i, j)) return false;
+    }
+  }
+  return true;
+}
+
+// matrix iequality operator
+template<uint64_t rows, uint64_t cols, class Type>
+inline bool operator!=(
+  const matrix2<rows, cols, Type> &m1, const matrix2<rows, cols, Type> &m2)
+{
+  return !(m1 == m2);
+}
+
 // cout insertion operator overload
 template<uint64_t rows, uint64_t cols, class Type>
 std::ostream &

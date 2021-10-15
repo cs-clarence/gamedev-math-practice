@@ -213,6 +213,44 @@ inline vector<size, Type> operator-(const vector<size, Type> &v)
   return _vtr_una_op<size, Type>(v, std::negate<Type>());
 }
 
+// relational operator
+// equality operator, general case
+template<uint64_t size, class Type>
+bool operator==(const vector<size, Type> &v1, const vector<size, Type> &v2)
+{
+  for (size_t i = 0; i < size; ++i)
+    if (v1[i] != v2[i]) return false;
+  return true;
+}
+
+// faster equality operator implementation for vector<1>
+template<class Type>
+inline bool operator==(const vector<1, Type> &v1, const vector<1, Type> &v2)
+{
+  return v1.x() == v2.x();
+}
+
+// faster equality operator implementation for vector<2>
+template<class Type>
+inline bool operator==(const vector<2, Type> &v1, const vector<2, Type> &v2)
+{
+  return v1.x() == v2.x() && v1.y() == v2.y();
+}
+
+// faster equality operator implementation for vector<3>
+template<class Type>
+inline bool operator==(const vector<3, Type> &v1, const vector<3, Type> &v2)
+{
+  return v1.x() == v2.x() && v1.y() == v2.y() && v1.z() && v2.z();
+}
+
+// inequality operator, general case
+template<uint64_t size, class Type>
+bool operator!=(const vector<size, Type> &v1, const vector<size, Type> &v2)
+{
+  return !(v1 == v2);
+}
+
 // Dot product function for vector class, general case
 // one use for dot product is to measure how alike two vectors are
 // it is used in tandem with unit vectors
@@ -258,7 +296,7 @@ inline uint64_t _move_forward_wrap(uint64_t index, size_t size)
   return (index + 1) % (size);
 }
 
-// Cross product function for vector class, general case
+// cross product function for vector class, general case
 template<uint64_t size, class Type>
 vector<size, Type>
 cross(const vector<size, Type> &v1, const vector<size, Type> &v2)
