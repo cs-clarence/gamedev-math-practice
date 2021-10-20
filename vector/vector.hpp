@@ -32,7 +32,8 @@ public:
   using size_in_range_t = std::enable_if_t<size >= min && size <= max, U>;
 
   // cullable template members (only template members can be culled)
-  // these are alternatives for accessing the array containing the vector's components
+  // these are alternatives for accessing the array containing the vector's
+  // components
   //
   template<class U = Type>
   size_in_range_t<1, 3, U> set_x(Type val)
